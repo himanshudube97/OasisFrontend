@@ -1,4 +1,5 @@
 import axios from "axios";
+
 // import { jwtDecode } from "jwt-decode";
 // import { useAuthStore } from "../Zustand/store";
 
@@ -62,5 +63,5 @@ api.interceptors.response.use(
 
 const handleTokenExpiration = () => {
   localStorage.setItem("token", "");
-  localStorage.setItem("isLoggedIn", "false");
+  window.location.href = '/login';
 };

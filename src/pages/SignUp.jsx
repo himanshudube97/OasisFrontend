@@ -3,7 +3,6 @@ import { useAuthStore } from "../Zustand/store";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Loader from "../components/Loader/Loader";
 function Signup() {
   const [formData, setFormData] = useState({
     name: "",
@@ -11,7 +10,7 @@ function Signup() {
   });
 
   const navigate = useNavigate();
-  const { createUser, loading } = useAuthStore((state) => {
+  const { createUser, } = useAuthStore((state) => {
     return { ...state };
   });
   const handleChange = (event) => {
@@ -36,9 +35,9 @@ function Signup() {
     }
   };
 
-  if (loading) {
-    return <Loader />;
-  }
+  // if (loading) {
+  //   return <Loader />;
+  // }
   return (
     <>
       <form

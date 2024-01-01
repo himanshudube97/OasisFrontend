@@ -50,7 +50,6 @@ export const useAuthStore = create((set) => ({
       const { data } = await login(phone);
       console.log(data.data, "data");
       localStorage.setItem("token", data.data.token);
-      localStorage.setItem("isLoggedIn", "true");
       set({ loading: false, userData: data.data.user });
     } catch (error) {
       console.log(error, "error");
@@ -67,7 +66,6 @@ export const useAuthStore = create((set) => ({
     try {
       await logout();
       localStorage.setItem("token", "");
-      localStorage.setItem("isLoggedIn", "false");
       set({ loading: false, userData: null });
     } catch (error) {
       console.log(error, "error");
@@ -136,7 +134,10 @@ export const useBlogsStore = create((set) => ({
       });
     } catch (error) {
       console.log(error, "error");
-      if (error.request && error.name == "AxiosError") {
+      if(error.response && error.response.status === 401){
+        alert("unauth")
+      }
+      else if (error.request && error.name == "AxiosError") {
         set({ loading: false, signUpError: error.message });
         return error.message;
       } else if (error.response) {

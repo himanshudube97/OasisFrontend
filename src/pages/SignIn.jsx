@@ -2,12 +2,11 @@ import { useState } from "react";
 import { useAuthStore } from "../Zustand/store";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import Loader from "../components/Loader/Loader";
 
 function SignIn() {
   const [phone, setPhone] = useState("");
 
-  const { loginUser, loading } = useAuthStore((state) => {
+  const { loginUser, } = useAuthStore((state) => {
     return { ...state };
   });
   const handleChange = (event) => {
@@ -27,9 +26,9 @@ function SignIn() {
     }
   };
 
-  if (loading) {
-    return <Loader />;
-  }
+  // if (loading) {
+  //   return <Loader />;
+  // }
   return (
     <>
       <form
