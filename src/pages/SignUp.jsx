@@ -21,13 +21,13 @@ function Signup() {
     event.preventDefault();
     // Handle form submission (e.g., send data to an API)
 
-    const res = await createUser(formData);
+    const {error} = await createUser(formData);
 
-    if (!res) {
+    if (!error) {
       toast.success("User Created Successfully");
       navigate("/login");
     } else {
-      toast.error(res);
+      toast.error(error);
       setFormData({
         name: "",
         phone: "",

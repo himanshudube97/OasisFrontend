@@ -15,13 +15,12 @@ function SignIn() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const res = await loginUser({ phone });
-    console.log(res, "resp");
-    if (!res) {
+    const {error} = await loginUser({ phone });
+    if (!error) {
       toast.success("User Logged In");
     //   navigate("/signup");
     } else {
-      toast.error(res);
+      toast.error(error);
       setPhone("");
     }
   };

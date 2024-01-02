@@ -7,10 +7,7 @@ export const Like = ({ item }) => {
   const { likeUnlikeBlog } = useBlogsStore((state) => {
     return { ...state };
   });
-    // const isLiked = useMemo(() => {
-    //     console.log("broo")
-    //   return item.likes.includes(userData._id) ? true : false;
-    // }, [item.likes, userData._id]);
+
   const [localLike, setLocalLike] = useState(null);
 
   const handleLikeUnlike = async (e, blogId, likeBlog) => {
@@ -20,8 +17,8 @@ export const Like = ({ item }) => {
         console.log(prev, "prev")
       return !prev;
     });
-    const res = await likeUnlikeBlog(blogId, { likeBlog });
-    if (res) {
+    const {error} = await likeUnlikeBlog(blogId, { likeBlog });
+    if (error) {
       setLocalLike((prev) => {
         return !prev;
       });

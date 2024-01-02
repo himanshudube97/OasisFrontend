@@ -12,7 +12,6 @@ import {
   signup,
 } from "../http-service";
 
-
 /**
  * MAKING GLOBAL LOADING STATES IS PROBLEMETIC IN SOME CASES,
  * LIKE, I WANTED TO MAKE A LIKE UNLIKE BUTTON
@@ -21,76 +20,71 @@ import {
  */
 export const useAuthStore = create((set) => ({
   userData: null,
-  loading: false,
-  signUpError: null,
-  signInError: null,
 
   setUserData: (data) => set((state) => ({ ...state, ...data })),
 
   createUser: async function (user) {
-    set({ loading: true });
     try {
       await signup(user);
-      set({ loading: false });
+      return { error: null, data: "Success" };
     } catch (error) {
-      console.log(error?.reponse.data, "errodube");
-      if (error.response && error?.response?.data?.message) {
-        set({ loading: false });
-        return error.reponse.data.message;
-      } else if (error.request && error.name == "AxiosError") {
-        set({ loading: false, signUpError: error.message });
-        return error.message;
+      console.log(error, "errodube");
+      if (!error.response && error.message === "Network Error") {
+        return { error: error.message, data: null };
+      }
+      if (error.response && error.response.data.message) {
+        return { error: error.response.data.message };
       }
     }
   },
 
   loginUser: async function (phone) {
-    set({ loading: true });
+   
     try {
       const { data } = await login(phone);
       console.log(data.data, "data");
       localStorage.setItem("token", data.data.token);
-      set({ loading: false, userData: data.data.user });
+      set({ userData: data.data.user });
+      return {error: null, data: "Successfully fetched"}
     } catch (error) {
       console.log(error, "error");
-      if (error.request && error.name == "AxiosError") {
-        set({ loading: false, signUpError: error.message });
-        return error.message;
-      } else if (error.response) {
-        set({ loading: false });
+      if (!error.response && error.message === "Network Error") {
+        return { error: error.message, data: null };
+      }
+      if (error.response && error.response.data.message) {
+        return { error: error.response.data.message };
       }
     }
   },
   logoutUser: async function () {
-    set({ loading: true });
     try {
       await logout();
       localStorage.setItem("token", "");
-      set({ loading: false, userData: null });
+      set({ userData: null });
+      return {error: null, data: "Successfully Logged Out"}
     } catch (error) {
       console.log(error, "error");
-      if (error.request && error.name == "AxiosError") {
-        set({ loading: false, signUpError: error.message });
-        return error.message;
-      } else if (error.response) {
-        set({ loading: false });
+      if (!error.response && error.message === "Network Error") {
+        return { error: error.message, data: null };
+      }
+      if (error.response && error.response.data.message) {
+        return { error: error.response.data.message };
       }
     }
   },
 
   getSingleUser: async function (userId) {
-    set({ loading: true });
     try {
       const { data } = await getSingleUser(userId);
-      console.log(data, "getsingle");
-      set({ loading: false, userData: data.data });
+      set({  userData: data.data });
+      return {error: null, data: "Successfully fetched User"}
     } catch (error) {
       console.log(error, "error");
-      if (error.request && error.name == "AxiosError") {
-        set({ loading: false, signUpError: error.message });
-        return error.message;
-      } else if (error.response) {
-        set({ loading: false });
+      if (!error.response && error.message === "Network Error") {
+        return { error: error.message, data: null };
+      }
+      if (error.response && error.response.data.message) {
+        return { error: error.response.data.message };
       }
     }
   },
@@ -101,78 +95,74 @@ export const useBlogsStore = create((set) => ({
   allComments: [],
   totalBlogs: 0,
   singleBlog: null,
-  loading: false,
 
   createBlog: async function (blogData) {
-    set({ loading: true });
     try {
       await createBlog(blogData);
-      set({ loading: false });
-      // set((state) => { return { allBlogs: [...state.allBlogs, data.result], loading: false } })
+      return {error: null, data: "Successfully Created Blog"}
     } catch (error) {
       console.log(error, "error");
-      if (error.request && error.name == "AxiosError") {
-        set({ loading: false, signUpError: error.message });
-        return error.message;
-      } else if (error.response) {
-        set({ loading: false });
+      if (!error.response && error.message === "Network Error") {
+        return { error: error.message, data: null };
+      }
+      if (error.response && error.response.data.message) {
+        return { error: error.response.data.message };
       }
     }
   },
 
   getAllBlogs: async function () {
-    set({ loading: true });
+
     try {
       const { data } = await getAllBlogs();
-      console.log(data, "all roooms");
+      console.log(data, "all Blogs");
       set(() => {
         return {
           allBlogs: [...data.data.blogs],
-          loading: false,
           totalBlogs: data.data.blogCount,
         };
       });
+      return {error: null, data: "Successfully fetched All Blogs"};
+
     } catch (error) {
       console.log(error, "error");
-      if(error.response && error.response.status === 401){
-        alert("unauth")
+      if (!error.response && error.message === "Network Error") {
+        return { error: error.message, data: null };
       }
-      else if (error.request && error.name == "AxiosError") {
-        set({ loading: false, signUpError: error.message });
-        return error.message;
-      } else if (error.response) {
-        set({ loading: false });
+      if (error.response && error.response.data.message) {
+        return { error: error.response.data.message };
       }
     }
   },
 
   getSingleBlog: async function (blogId) {
-    set({ loading: true });
     try {
       const { data } = await getSingleBlog(blogId);
-      console.log(data, "singleroom");
-      set({ singleBlog: data.data, loading: false });
+      console.log(data, "singel eblog");
+      set({ singleBlog: data.data });
+      return {error: null, data: "Successfully fetched Blog"};
+
     } catch (error) {
-      if (error.request && error.name == "AxiosError") {
-        set({ loading: false, signUpError: error.message });
-        return error.message;
-      } else if (error.response) {
-        set({ loading: false });
+      if (!error.response && error.message === "Network Error") {
+        return { error: error.message, data: null };
+      }
+      if (error.response && error.response.data.message) {
+        return { error: error.response.data.message };
       }
     }
   },
 
   likeUnlikeBlog: async function (blogId, likeBlog) {
-    // set({ loading: true });
     try {
       await likeUnlikeBlog(blogId, likeBlog);
-      // set({ loading: false });
+      return {error: null, data: "Success"};
+
     } catch (error) {
-      if (error.request && error.name == "AxiosError") {
-        set({ loading: false, signUpError: error.message });
-        return error.message;
-      } else if (error.response) {
-        set({ loading: false });
+      if (!error.response && error.message === "Network Error") {
+        return { error: error.message, data: null };
+      }
+      if (error.response && error.response.data.message) {
+        return { error: error.response.data.message };
       }
     }
   },
@@ -180,24 +170,24 @@ export const useBlogsStore = create((set) => ({
   createComment: async function (blogId, data) {
     try {
       await createComment(blogId, data);
-      set((state)=>{
-        console.log(state, "stetatatata")
+      set((state) => {
         return {
-          allComments: [...state.allComments,data]
-        }
-      })
+          allComments: [...state.allComments, data],
+        };
+      });
+      return {error: null, data: "Success"};
+
     } catch (error) {
-      if (error.request && error.name == "AxiosError") {
-        set({ loading: false, signUpError: error.message });
-        return error.message;
-      } else if (error.response) {
-        set({ loading: false });
+      if (!error.response && error.message === "Network Error") {
+        return { error: error.message, data: null };
+      }
+      if (error.response && error.response.data.message) {
+        return { error: error.response.data.message };
       }
     }
   },
 
   getAllComments: async function (blogId) {
-    set({ loading: true });
     try {
       const { data } = await getAllComments(blogId);
       console.log(data, "datacommnets");
@@ -207,12 +197,14 @@ export const useBlogsStore = create((set) => ({
           loading: false,
         };
       });
+      return {error: null, data: "Successfully fetched All Comments"};
+
     } catch (error) {
-      if (error.request && error.name == "AxiosError") {
-        set({ loading: false, signUpError: error.message });
-        return error.message;
-      } else if (error.response) {
-        set({ loading: false });
+      if (!error.response && error.message === "Network Error") {
+        return { error: error.message, data: null };
+      }
+      if (error.response && error.response.data.message) {
+        return { error: error.response.data.message };
       }
     }
   },

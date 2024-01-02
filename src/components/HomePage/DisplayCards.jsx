@@ -16,6 +16,7 @@ console.log("did  ru n iiii")
   useEffect(() => {
     async function getBlogs() {
       await getAllBlogs();
+     
     }
     getBlogs();
   }, [getAllBlogs]);

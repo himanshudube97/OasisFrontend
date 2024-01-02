@@ -11,14 +11,7 @@ import { useCheckUser } from "./hooks/checkUser";
 
 
 function App() {
-
-  // const token = localStorage.getItem("token");
-  // eslint-disable-next-line no-unused-vars
-  const {loading, userData} = useCheckUser();
-console.log(userData , "user")
-// if(loading){
-//   return <Loader />
-// }
+  const { userData} = useCheckUser();
   return (
     <>
       <BrowserRouter>

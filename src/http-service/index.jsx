@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useAuthStore } from "../Zustand/store";
 
 // import { jwtDecode } from "jwt-decode";
 // import { useAuthStore } from "../Zustand/store";
@@ -50,6 +51,9 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
+    if(!error.response && error.message === "Network Error"){
+      console.log("cooooool")
+    }
     if (error.response && error.response.status === 401) {
       // Token expired or unauthorized, handle expiration
       handleTokenExpiration();
@@ -63,5 +67,8 @@ api.interceptors.response.use(
 
 const handleTokenExpiration = () => {
   localStorage.setItem("token", "");
-  window.location.href = '/login';
+  useAuthStore.setState((state)=>{
+    console.log(state, "thorin")
+    return state.userData = null
+  })
 };
