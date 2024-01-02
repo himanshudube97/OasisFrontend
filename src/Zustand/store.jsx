@@ -2,6 +2,7 @@ import { create } from "zustand";
 import {
   createBlog,
   createComment,
+  followUnfollowUser,
   getAllBlogs,
   getAllComments,
   getAllUsers,
@@ -23,6 +24,7 @@ import {
 export const useAuthStore = create((set) => ({
   userData: null,
   users: [],
+  singleUser: null,
   isUpdating: true,
 
   setUserData: (data) => set((state) => ({ ...state, ...data })),
@@ -108,12 +110,12 @@ export const useAuthStore = create((set) => ({
     }
   },
 
-  updateUser: async function (updateData){
+  updateUser: async function (updateData) {
     try {
-      set({isUpdating: true});
-      const {data} = await updateUser(updateData);
-      set({userData: data.data, isUpdating:false});
-      return {error: null, data: "Successfully Updated User"}
+      set({ isUpdating: true });
+      const { data } = await updateUser(updateData);
+      set({ userData: data.data, isUpdating: false });
+      return { error: null, data: "Successfully Updated User" };
     } catch (error) {
       console.log(error, "error");
       if (!error.response && error.message === "Network Error") {
@@ -123,7 +125,21 @@ export const useAuthStore = create((set) => ({
         return { error: error.response.data.message };
       }
     }
-  }
+  },
+  followUnfollow: async function (id, newData) {
+    try {
+      const { data } = await followUnfollowUser(id, newData);
+      set({ userData: data.data });
+    } catch (error) {
+      console.log(error, "error");
+      if (!error.response && error.message === "Network Error") {
+        return { error: error.message, data: null };
+      }
+      if (error.response && error.response.data.message) {
+        return { error: error.response.data.message };
+      }
+    }
+  },
 }));
 
 export const useBlogsStore = create((set) => ({

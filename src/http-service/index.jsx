@@ -18,16 +18,18 @@ export const signup = (data) => api.post("/create-user", data);
 export const login = (data) => api.post("/login-user", data);
 export const logout = () => api.post("/logout-user");
 export const getSingleUser = (id) => api.get(`/get-user/${id}`);
-export const getAllUsers = ()=> api.get('/get-all-users');
-export const updateUser =(data) => api.post('/update-user-profile', data);
+export const getAllUsers = () => api.get("/get-all-users");
+export const updateUser = (data) => api.post("/update-user-profile", data);
 export const createBlog = (data) => api.post("/create-blog", data);
 export const getAllBlogs = () => api.get(`/get-all-blogs`);
 export const getSingleBlog = (id) => api.get(`/get-single-blog/${id}`);
-export const likeUnlikeBlog = (id, data) => api.post(`/like-unlike-blog/${id}`,data );
+export const likeUnlikeBlog = (id, data) =>
+  api.post(`/like-unlike-blog/${id}`, data);
 export const createComment = (id, data) =>
   api.post(`/create-comment/${id}`, data);
 export const getAllComments = (id) => api.get(`/get-comments/${id}`);
-
+export const followUnfollowUser = (id, data) =>
+  api.post(`/follow-unfollow-user/${id}`, data);
 // export const joinRoom = (id)=>api.post(`/join-room/${id}`);
 // export const getMessages =(id)=>api.get(`/getMessages/${id}`);
 
@@ -53,8 +55,8 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    if(!error.response && error.message === "Network Error"){
-      console.log("cooooool")
+    if (!error.response && error.message === "Network Error") {
+      console.log("cooooool");
     }
     if (error.response && error.response.status === 401) {
       // Token expired or unauthorized, handle expiration
@@ -69,8 +71,8 @@ api.interceptors.response.use(
 
 const handleTokenExpiration = () => {
   localStorage.setItem("token", "");
-  useAuthStore.setState((state)=>{
-    console.log(state, "thorin")
-    return state.userData = null
-  })
+  useAuthStore.setState((state) => {
+    console.log(state, "thorin");
+    return (state.userData = null);
+  });
 };

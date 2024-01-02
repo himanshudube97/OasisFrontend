@@ -19,8 +19,9 @@ export const useCheckUser = () => {
         }
         if (token) {
             const decoded = jwtDecode(token);
-
              getUserInfo(decoded.id);
+        }else{
+            getUserInfo("");
         }
     }, [token, getSingleUser])
 

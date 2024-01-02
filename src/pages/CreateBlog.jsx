@@ -24,13 +24,13 @@ export const CreateBlog = () => {
 
   const handleSubmitBlog = async (e) => {
     e.preventDefault();
-    const res = await createBlog({...blogData, tags: tagList});
+    const {error} = await createBlog({...blogData, tags: tagList});
 
-    if (!res) {
+    if (!error) {
       toast.success("Blog Successfully Created");
       navigate("/home");
     } else {
-      toast.error(res);
+      toast.error(error);
       setBlogData({
         title: "",
         description: "",
