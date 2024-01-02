@@ -18,6 +18,8 @@ export const signup = (data) => api.post("/create-user", data);
 export const login = (data) => api.post("/login-user", data);
 export const logout = () => api.post("/logout-user");
 export const getSingleUser = (id) => api.get(`/get-user/${id}`);
+export const getAllUsers = ()=> api.get('/get-all-users');
+export const updateUser =(data) => api.post('/update-user-profile', data);
 export const createBlog = (data) => api.post("/create-blog", data);
 export const getAllBlogs = () => api.get(`/get-all-blogs`);
 export const getSingleBlog = (id) => api.get(`/get-single-blog/${id}`);

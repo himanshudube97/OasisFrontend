@@ -1,16 +1,16 @@
-
-import { useAuthStore,  } from "../Zustand/store";
+import { useAuthStore } from "../Zustand/store";
 import { HomeHeader } from "../components/HomePage/HomeHeader";
 import { DisplayCards } from "../components/HomePage/DisplayCards";
 import Loader from "../components/Loader/Loader";
+import { AllUsers } from "../components/HomePage/AllUsers";
 
 export const Home = () => {
-  const { userData , loading } = useAuthStore((state) => {
+  const { userData, loading } = useAuthStore((state) => {
     return { ...state };
   });
 
-  if(loading){
-    return <Loader/>
+  if (loading) {
+    return <Loader />;
   }
   return (
     <>
@@ -18,7 +18,12 @@ export const Home = () => {
         {" "}
         {/* Adjust padding and margin as needed */}
         <HomeHeader userName={userData?.name} />
-        <DisplayCards />
+        <div className="flex gap-10 px-10 ">
+          <div></div>
+          <DisplayCards />
+
+          <AllUsers />
+        </div>
       </div>
     </>
   );

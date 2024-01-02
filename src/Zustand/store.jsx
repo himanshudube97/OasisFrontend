@@ -4,12 +4,14 @@ import {
   createComment,
   getAllBlogs,
   getAllComments,
+  getAllUsers,
   getSingleBlog,
   getSingleUser,
   likeUnlikeBlog,
   login,
   logout,
   signup,
+  updateUser,
 } from "../http-service";
 
 /**
@@ -20,6 +22,8 @@ import {
  */
 export const useAuthStore = create((set) => ({
   userData: null,
+  users: [],
+  isUpdating: true,
 
   setUserData: (data) => set((state) => ({ ...state, ...data })),
 
@@ -39,13 +43,12 @@ export const useAuthStore = create((set) => ({
   },
 
   loginUser: async function (phone) {
-   
     try {
       const { data } = await login(phone);
       console.log(data.data, "data");
       localStorage.setItem("token", data.data.token);
       set({ userData: data.data.user });
-      return {error: null, data: "Successfully fetched"}
+      return { error: null, data: "Successfully fetched" };
     } catch (error) {
       console.log(error, "error");
       if (!error.response && error.message === "Network Error") {
@@ -61,7 +64,7 @@ export const useAuthStore = create((set) => ({
       await logout();
       localStorage.setItem("token", "");
       set({ userData: null });
-      return {error: null, data: "Successfully Logged Out"}
+      return { error: null, data: "Successfully Logged Out" };
     } catch (error) {
       console.log(error, "error");
       if (!error.response && error.message === "Network Error") {
@@ -76,8 +79,8 @@ export const useAuthStore = create((set) => ({
   getSingleUser: async function (userId) {
     try {
       const { data } = await getSingleUser(userId);
-      set({  userData: data.data });
-      return {error: null, data: "Successfully fetched User"}
+      set({ userData: data.data });
+      return { error: null, data: "Successfully fetched User" };
     } catch (error) {
       console.log(error, "error");
       if (!error.response && error.message === "Network Error") {
@@ -88,6 +91,39 @@ export const useAuthStore = create((set) => ({
       }
     }
   },
+
+  getAllUsers: async function () {
+    try {
+      const { data } = await getAllUsers();
+      set({ users: data.data });
+      return { error: null, data: "Successfully fetched Users" };
+    } catch (error) {
+      console.log(error, "error");
+      if (!error.response && error.message === "Network Error") {
+        return { error: error.message, data: null };
+      }
+      if (error.response && error.response.data.message) {
+        return { error: error.response.data.message };
+      }
+    }
+  },
+
+  updateUser: async function (updateData){
+    try {
+      set({isUpdating: true});
+      const {data} = await updateUser(updateData);
+      set({userData: data.data, isUpdating:false});
+      return {error: null, data: "Successfully Updated User"}
+    } catch (error) {
+      console.log(error, "error");
+      if (!error.response && error.message === "Network Error") {
+        return { error: error.message, data: null };
+      }
+      if (error.response && error.response.data.message) {
+        return { error: error.response.data.message };
+      }
+    }
+  }
 }));
 
 export const useBlogsStore = create((set) => ({
@@ -99,7 +135,7 @@ export const useBlogsStore = create((set) => ({
   createBlog: async function (blogData) {
     try {
       await createBlog(blogData);
-      return {error: null, data: "Successfully Created Blog"}
+      return { error: null, data: "Successfully Created Blog" };
     } catch (error) {
       console.log(error, "error");
       if (!error.response && error.message === "Network Error") {
@@ -112,7 +148,6 @@ export const useBlogsStore = create((set) => ({
   },
 
   getAllBlogs: async function () {
-
     try {
       const { data } = await getAllBlogs();
       console.log(data, "all Blogs");
@@ -122,8 +157,7 @@ export const useBlogsStore = create((set) => ({
           totalBlogs: data.data.blogCount,
         };
       });
-      return {error: null, data: "Successfully fetched All Blogs"};
-
+      return { error: null, data: "Successfully fetched All Blogs" };
     } catch (error) {
       console.log(error, "error");
       if (!error.response && error.message === "Network Error") {
@@ -140,8 +174,7 @@ export const useBlogsStore = create((set) => ({
       const { data } = await getSingleBlog(blogId);
       console.log(data, "singel eblog");
       set({ singleBlog: data.data });
-      return {error: null, data: "Successfully fetched Blog"};
-
+      return { error: null, data: "Successfully fetched Blog" };
     } catch (error) {
       if (!error.response && error.message === "Network Error") {
         return { error: error.message, data: null };
@@ -155,8 +188,7 @@ export const useBlogsStore = create((set) => ({
   likeUnlikeBlog: async function (blogId, likeBlog) {
     try {
       await likeUnlikeBlog(blogId, likeBlog);
-      return {error: null, data: "Success"};
-
+      return { error: null, data: "Success" };
     } catch (error) {
       if (!error.response && error.message === "Network Error") {
         return { error: error.message, data: null };
@@ -175,8 +207,7 @@ export const useBlogsStore = create((set) => ({
           allComments: [...state.allComments, data],
         };
       });
-      return {error: null, data: "Success"};
-
+      return { error: null, data: "Success" };
     } catch (error) {
       if (!error.response && error.message === "Network Error") {
         return { error: error.message, data: null };
@@ -197,8 +228,7 @@ export const useBlogsStore = create((set) => ({
           loading: false,
         };
       });
-      return {error: null, data: "Successfully fetched All Comments"};
-
+      return { error: null, data: "Successfully fetched All Comments" };
     } catch (error) {
       if (!error.response && error.message === "Network Error") {
         return { error: error.message, data: null };
