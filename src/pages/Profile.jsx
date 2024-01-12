@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useAuthStore } from "../Zustand/store";
 import editComp from "../assets/icons/edit-solid.svg";
 import { EditDiv } from "../components/ProfileComps/EditDiv";
+import { AllUsers } from "../components/HomePage/AllUsers";
+import { UserFollowersList } from "../constants/constants";
 export const UserProfile = () => {
   const { userData, isUpdating } = useAuthStore((state) => {
     return { ...state };
@@ -17,8 +19,11 @@ export const UserProfile = () => {
     }
   },[isUpdating])
   return (
-    <>
-      <div className="max-w-xl mx-auto bg-white rounded-lg shadow-lg p-6">
+    <div className="flex justify-evenly">
+      <div>
+
+      </div>
+      <div className=" bg-white rounded-lg shadow-lg p-6">
         {/* Avatar */}
         <div className="flex items-center justify-center">
           <img
@@ -105,6 +110,10 @@ export const UserProfile = () => {
         </div>
       
       </div>
-    </>
+     <div>
+            <h1>Users You follow</h1>
+      <AllUsers whatToShow={UserFollowersList.FOLLOWINGS} />
+     </div>
+    </div>
   );
 };

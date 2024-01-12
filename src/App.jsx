@@ -9,6 +9,7 @@ import { SingleBlog } from "./pages/SingleBlog";
 import { useCheckUser } from "./hooks/checkUser";
 import { UserProfile } from "./pages/Profile";
 import Loader from "./components/Loader/Loader";
+import { OtherUserProfile } from "./pages/OthersProfile";
 
 
 
@@ -29,6 +30,7 @@ function App() {
               <Route path="/create-blog" element={<CreateBlog />} />
               <Route path="/single-blog/:blogId" element={<SingleBlog/>} />
               <Route path="/profile" element={<UserProfile/>} />
+              <Route path="/user-profile/:userId" element={<OtherUserProfile/>} />
               <Route path="/*" element={<Navigate to="/home" />} />
             </>
           ) : (

@@ -3,6 +3,7 @@ import { HomeHeader } from "../components/HomePage/HomeHeader";
 import { DisplayCards } from "../components/HomePage/DisplayCards";
 import Loader from "../components/Loader/Loader";
 import { AllUsers } from "../components/HomePage/AllUsers";
+import { UserFollowersList } from "../constants/constants";
 
 export const Home = () => {
   const { userData, loading } = useAuthStore((state) => {
@@ -22,7 +23,7 @@ export const Home = () => {
           <div></div>
           <DisplayCards />
 
-          <AllUsers />
+          <AllUsers whatToShow={UserFollowersList.NOT_FOLLOWED} />
         </div>
       </div>
     </>

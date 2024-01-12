@@ -93,6 +93,21 @@ export const useAuthStore = create((set) => ({
       }
     }
   },
+  getSingleUserOther: async function (userId) {
+    try {
+      const { data } = await getSingleUser(userId);
+      set({ singleUser: data.data });
+      return { error: null, data: "Successfully fetched User" };
+    } catch (error) {
+      console.log(error, "error");
+      if (!error.response && error.message === "Network Error") {
+        return { error: error.message, data: null };
+      }
+      if (error.response && error.response.data.message) {
+        return { error: error.response.data.message };
+      }
+    }
+  },
 
   getAllUsers: async function () {
     try {
