@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuthStore } from "../Zustand/store";
 // import { AllUsers } from "../components/HomePage/AllUsers";
 // import { UserFollowersList } from "../constants/constants";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Loader from "../components/Loader/Loader";
 
 export const OtherUserProfile = () => {
@@ -11,7 +11,7 @@ export const OtherUserProfile = () => {
   const { singleUser, getSingleUserOther } = useAuthStore((state) => {
     return { ...state };
   });
-console.log(singleUser, "singleuser")
+  console.log(singleUser, "singleuser");
   useEffect(() => {
     async function getSingleUserFn(userId) {
       await getSingleUserOther(userId);
@@ -62,9 +62,17 @@ console.log(singleUser, "singleuser")
           <p className="text-gray-600 mt-2">{singleUser?.about}</p>
           {/* Add other user information sections as needed */}
         </div>
+        <Link to={`/single-chat/${singleUser?._id}`}>
+          <button
+            type="button"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Message
+          </button>
+        </Link>
       </div>
       <div>
-        <h1>Users You follow</h1>
+        {/* <h1>Users You follow</h1> */}
         {/* <AllUsers whatToShow={UserFollowersList.FOLLOWINGS} /> */}
       </div>
     </div>

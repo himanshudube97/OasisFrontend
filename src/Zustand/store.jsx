@@ -27,6 +27,7 @@ export const useAuthStore = create((set) => ({
   singleUser: null,
   isUpdating: true,
 
+
   setUserData: (data) => set((state) => ({ ...state, ...data })),
 
   createUser: async function (user) {

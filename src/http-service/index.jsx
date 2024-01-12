@@ -30,6 +30,7 @@ export const createComment = (id, data) =>
 export const getAllComments = (id) => api.get(`/get-comments/${id}`);
 export const followUnfollowUser = (id, data) =>
   api.post(`/follow-unfollow-user/${id}`, data);
+  export const getAllChats = (id)=> api.get(`/get-all-chats/${id}`);
 // export const joinRoom = (id)=>api.post(`/join-room/${id}`);
 // export const getMessages =(id)=>api.get(`/getMessages/${id}`);
 
