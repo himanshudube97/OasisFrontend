@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 export const InputSection = ({handleInputChange, inputMsg, handleSubmit}) => {
     return <>
 

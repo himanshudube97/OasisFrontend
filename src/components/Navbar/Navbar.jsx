@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 // Navbar.js
 
 import { useState } from "react";
 import { Link } from "react-router-dom"; // If you're using React Router
 import { useAuthStore } from "../../Zustand/store";
 
-const Navbar = () => {
+const Navbar = ({socket}) => {
   const [isOpen, setIsOpen] = useState(false);
   const { logoutUser } = useAuthStore((state) => {
     return { ...state };
@@ -12,7 +13,11 @@ const Navbar = () => {
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
-
+  const handleLogout = ()=>{
+    logoutUser();
+    socket?.disconnect("disconnect");
+  }
+console.log(socket, "socketttttthead")
   return (
     <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex justify-between items-center">
@@ -62,7 +67,7 @@ const Navbar = () => {
             <li className="nav-item">
               <button
                 onClick={() => {
-                  logoutUser();
+                  handleLogout();
                 }}
                 className="bg-white hover:text-grey-300"
               >

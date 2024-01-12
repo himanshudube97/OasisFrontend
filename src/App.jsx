@@ -11,28 +11,49 @@ import { UserProfile } from "./pages/Profile";
 import Loader from "./components/Loader/Loader";
 import { OtherUserProfile } from "./pages/OthersProfile";
 import ChatPage from "./pages/ChatPage";
+import { useEffect, useState } from "react";
+import { socketConnectFunction } from "./socketConnection";
 
-
-
+let socket;
 function App() {
-  const {loading, userData} = useCheckUser();
-  if(loading){
-    return <Loader/>
+  const { loading, userData } = useCheckUser();
+  // eslint-disable-next-line no-unused-vars
+  const [isSocketCon, setSocketCon]  = useState(false);
+  useEffect(() => {
+    if (userData) {
+      socket = socketConnectFunction();
+      socket.auth = userData;
+      socket.connect();
+      socket.on("connection", (con) => {
+        console.log(con, "con");
+        setSocketCon(true);
+      });
+      return () => {
+        socket.disconnect("disconnect");
+      };
+    }
+  }, [userData]);
+
+  if (loading) {
+    return <Loader />;
   }
   return (
     <>
       <BrowserRouter>
-        <Navbar />
+        <Navbar socket={socket} />
         <Routes>
-          {userData? (
+          {userData ? (
             // Protected Routes
             <>
               <Route path="/home" element={<Home />} />
               <Route path="/create-blog" element={<CreateBlog />} />
-              <Route path="/single-blog/:blogId" element={<SingleBlog/>} />
-              <Route path="/profile" element={<UserProfile/>} />
-              <Route path="/user-profile/:userId" element={<OtherUserProfile/>} />
-              <Route path="/single-chat/:userId" element={<ChatPage />} />
+              <Route path="/single-blog/:blogId" element={<SingleBlog />} />
+              <Route path="/profile" element={<UserProfile />} />
+              <Route
+                path="/user-profile/:userId"
+                element={<OtherUserProfile />}
+              />
+              <Route path="/single-chat/:userId/:userName" element={<ChatPage socket={socket} />} />
               <Route path="/*" element={<Navigate to="/home" />} />
             </>
           ) : (
