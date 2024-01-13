@@ -46,11 +46,11 @@ export default function ChatPage({ socket }) {
         });
       });
 
-      return () => {
-        console.log(chats._id, "chatsid");
-        socket.emit("leave-room", { roomId: chats?._id });
-        socket.off("pvt-message");
-      };
+    //   return () => {
+    //     console.log(chats._id, "chatsid");
+    //     socket.emit("leave-room", { roomId: chats?._id });
+    //     socket.off("pvt-message");
+    //   };
     }
   }, [socket, chats]);
 

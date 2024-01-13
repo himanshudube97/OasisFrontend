@@ -16,13 +16,13 @@ import { socketConnectFunction } from "./socketConnection";
 
 let socket;
 function App() {
-  const { loading, userData } = useCheckUser();
+  const { loading,chats, userData } = useCheckUser();
   // eslint-disable-next-line no-unused-vars
   const [isSocketCon, setSocketCon]  = useState(false);
   useEffect(() => {
-    if (userData) {
+    if (userData && chats) {
       socket = socketConnectFunction();
-      socket.auth = userData;
+      socket.auth = {userData, chats};
       socket.connect();
       socket.on("connection", ({socketId}) => {
         console.log(socketId, "con");
@@ -32,7 +32,7 @@ function App() {
         socket.disconnect("disconnect");
       };
     }
-  }, [userData]);
+  }, [userData, chats]);
 
   if (loading) {
     return <Loader />;

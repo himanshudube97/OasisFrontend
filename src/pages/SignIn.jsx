@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 function SignIn() {
   const [phone, setPhone] = useState("");
 
-  const { loginUser, } = useAuthStore((state) => {
+  const { loginUser } = useAuthStore((state) => {
     return { ...state };
   });
   const handleChange = (event) => {

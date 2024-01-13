@@ -6,6 +6,7 @@ import {
   getAllBlogs,
   getAllComments,
   getAllUsers,
+  getMyChats,
   getSingleBlog,
   getSingleUser,
   likeUnlikeBlog,
@@ -26,7 +27,6 @@ export const useAuthStore = create((set) => ({
   users: [],
   singleUser: null,
   isUpdating: true,
-
 
   setUserData: (data) => set((state) => ({ ...state, ...data })),
 
@@ -258,6 +258,32 @@ export const useBlogsStore = create((set) => ({
         return {
           allComments: data.data,
           loading: false,
+        };
+      });
+      return { error: null, data: "Successfully fetched All Comments" };
+    } catch (error) {
+      if (!error.response && error.message === "Network Error") {
+        return { error: error.message, data: null };
+      }
+      if (error.response && error.response.data.message) {
+        return { error: error.response.data.message };
+      }
+    }
+  },
+}));
+
+//msg chat store
+
+export const useChatStore = create((set) => ({
+  chats: null,
+
+  getChats: async function (userId) {
+    try {
+      const { data } = await getMyChats(userId);
+      console.log(data, "chats");
+      set(() => {
+        return {
+          chats: data.data,
         };
       });
       return { error: null, data: "Successfully fetched All Comments" };

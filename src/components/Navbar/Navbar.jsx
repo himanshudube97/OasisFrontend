@@ -5,27 +5,32 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"; // If you're using React Router
 import { useAuthStore } from "../../Zustand/store";
 
-const Navbar = ({socket}) => {
+const Navbar = ({ socket }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { logoutUser } = useAuthStore((state) => {
+  const { logoutUser, userData } = useAuthStore((state) => {
     return { ...state };
   });
+  const [notification, setNotification] = useState(false);
+
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
-  const handleLogout = ()=>{
+  const handleLogout = () => {
     logoutUser();
     socket?.disconnect("disconnect");
-  }
+  };
 
-  useEffect(()=>{
-    socket.on("pvt-message", (msg)=>{
-      console.log(msg, "header main msg")
-    })
-  },[socket])
+  useEffect(() => {
+    if (socket) {
+      socket.on("pvt-message", (msg) => {
+        console.log(msg, "header main msg");
+          if(userData._id!==msg.fromId){
+            setNotification(true);
+          }
+      });
+    }
+  }, [socket]);
 
-
-console.log(socket, "socketttttthead")
   return (
     <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex justify-between items-center">
@@ -56,6 +61,11 @@ console.log(socket, "socketttttthead")
         {/* Navigation Links */}
         <div className={`lg:flex ${isOpen ? "block" : "hidden"} items-center`}>
           <ul className="lg:flex flex-col lg:flex-row list-none lg:ml-auto ">
+            {notification ? (
+              <li className="nav-item text-red-500"> New Notification</li>
+              ) : (
+              <li className="nav-item text-white"> No Notification</li>
+            )}
             <li className="nav-item">
               <Link
                 to="/"
