@@ -24,8 +24,8 @@ function App() {
       socket = socketConnectFunction();
       socket.auth = userData;
       socket.connect();
-      socket.on("connection", (con) => {
-        console.log(con, "con");
+      socket.on("connection", ({socketId}) => {
+        console.log(socketId, "con");
         setSocketCon(true);
       });
       return () => {

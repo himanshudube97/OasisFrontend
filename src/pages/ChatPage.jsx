@@ -66,6 +66,7 @@ export default function ChatPage({ socket }) {
       toName: userName,
       fromId: userData._id,
       toId: userId,
+      toSocketId: ""
     });
     setInputMsg("");
   };

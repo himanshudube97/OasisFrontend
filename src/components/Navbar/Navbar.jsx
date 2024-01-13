@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 // Navbar.js
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"; // If you're using React Router
 import { useAuthStore } from "../../Zustand/store";
 
@@ -17,6 +17,14 @@ const Navbar = ({socket}) => {
     logoutUser();
     socket?.disconnect("disconnect");
   }
+
+  useEffect(()=>{
+    socket.on("pvt-message", (msg)=>{
+      console.log(msg, "header main msg")
+    })
+  },[socket])
+
+
 console.log(socket, "socketttttthead")
   return (
     <nav className="bg-gray-800 p-4">
