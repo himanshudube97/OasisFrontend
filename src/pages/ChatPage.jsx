@@ -5,6 +5,7 @@ import { getAllChats } from "../http-service";
 import { ChatSection } from "../components/Chat/Chat";
 import { InputSection } from "../components/Chat/InputChat";
 import { useAuthStore } from "../Zustand/store";
+import Loader from "../components/Loader/Loader";
 
 export default function ChatPage({ socket }) {
   const { userId, userName } = useParams();
@@ -21,7 +22,7 @@ export default function ChatPage({ socket }) {
     async function getChats() {
       try {
         const { data } = await getAllChats(userId);
-        console.log(data, "datatatatatata");
+        // console.log(data, "datatatatatata");
         setChats(data.data); // data.data.messages.
         setTempChats(data.data.messages);
       } catch (error) {
@@ -37,23 +38,23 @@ export default function ChatPage({ socket }) {
 
   useEffect(() => {
     if (chats) {
-      socket.emit("join-chat-room", { roomId: chats?._id });
-
-      socket.on("pvt-message", (msg) => {
-        console.log(msg, "msg");
-        setTempChats((prev) => {
-          return [...prev, msg];
-        });
-      });
-
-    //   return () => {
-    //     console.log(chats._id, "chatsid");
-    //     socket.emit("leave-room", { roomId: chats?._id });
-    //     socket.off("pvt-message");
-    //   };
+        //making this function seperate 
+        //so that to pass the same refernce to cleanup function too.
+      const handlePrivateMessage = (msg) => {
+        console.log("byyyyyyyyyyyyyyyyeeeeeeee");
+        setTempChats((prev) => [...prev, msg]);
+      };
+  
+      // Add event listener only once
+      socket.on("pvt-message", handlePrivateMessage);
+  
+      // Cleanup function to remove the listner when this unmounts, especially in dev mode.
+      return () => {
+        socket.off("pvt-message", handlePrivateMessage);
+      };
     }
   }, [socket, chats]);
-
+  
   const handleInputChange = (e) => {
     setInputMsg(e.target.value);
   };
@@ -70,7 +71,9 @@ export default function ChatPage({ socket }) {
     });
     setInputMsg("");
   };
-
+if(!chats){
+    return <Loader />
+}
   return (
     <>
       {/* Chat component */}

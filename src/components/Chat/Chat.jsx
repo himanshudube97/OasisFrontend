@@ -5,7 +5,7 @@ import { SingleMsg } from "./SingleMessage";
 // eslint-disable-next-line no-unused-vars
 export const ChatSection = ({ chatId, tempChats }) => {
   // const [allMsgs, setAllMsgs] = useState([]);
-  const messageContainerRef = useRef(null);
+  const messageContainerRef = useRef(tempChats);
 
   useEffect(() => {
     // Scroll to the bottom of the message container when messages change or component mounts
@@ -13,7 +13,7 @@ export const ChatSection = ({ chatId, tempChats }) => {
       messageContainerRef.current.scrollTop =
         messageContainerRef.current.scrollHeight;
     }
-  }, []);
+  }, [tempChats]);
   //if all msgs change then only this map function will run.
   // storing SingleMsg as memo, because, while rendering only those msgs will re render which are new not the old ones.
   return (
@@ -26,8 +26,9 @@ export const ChatSection = ({ chatId, tempChats }) => {
 
         {/* {MappedChats} */}
         {tempChats?.map((item, i) => {
+            if(item.chatId == chatId)
           return (
-            <Fragment key ={i}>
+            <Fragment  key ={i}>
               {/* {item.message} */}
               <SingleMsg item={item} />
             </Fragment>

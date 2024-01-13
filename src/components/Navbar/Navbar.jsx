@@ -29,7 +29,7 @@ const Navbar = ({ socket }) => {
           }
       });
     }
-  }, [socket]);
+  }, [socket, userData]);
 
   return (
     <nav className="bg-gray-800 p-4">
