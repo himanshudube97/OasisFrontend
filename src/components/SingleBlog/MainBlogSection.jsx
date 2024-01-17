@@ -4,7 +4,7 @@ import { Like } from "../HomePage/Like";
 
 // eslint-disable-next-line react/prop-types
 export const MainBlogSection = ({ blogId }) => {
-  const { getSingleBlog, singleBlog } = useBlogsStore((state) => ({
+  const { getSingleBlog, singleBlog, selectWord, clearWord } = useBlogsStore((state) => ({
     ...state,
   }));
 
@@ -13,7 +13,15 @@ export const MainBlogSection = ({ blogId }) => {
       await getSingleBlog(blogId);
     }
     getSingleBlogFunc();
-  }, [blogId, getSingleBlog]);
+    return ()=> {
+      clearWord();
+    }
+  }, [blogId, getSingleBlog, clearWord]);
+
+  const handleSelectWord = () => {
+    const selectedWord = window.getSelection().toString().trim();
+    selectWord(selectedWord);
+  };
   return (
     <>
       {singleBlog ? (
@@ -37,7 +45,10 @@ export const MainBlogSection = ({ blogId }) => {
           <p className="text-gray-600 mb-6">{singleBlog?.description}</p>
 
           {/* Blog Content */}
-          <div className="overflow-y-scroll max-h-[90vh]">
+          <div
+            className="overflow-y-scroll max-h-[90vh]"
+            onDoubleClick={handleSelectWord}
+          >
             {singleBlog.isPaid ? (
               <>
                 <p className="text-lg leading-relaxed mb-8">
@@ -51,7 +62,7 @@ export const MainBlogSection = ({ blogId }) => {
               <p className="text-lg leading-relaxed mb-8">
                 {singleBlog?.content}
               </p>
-           )} 
+            )}
           </div>
           <Like item={singleBlog} />
         </div>

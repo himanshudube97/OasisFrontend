@@ -163,6 +163,7 @@ export const useBlogsStore = create((set) => ({
   allComments: [],
   totalBlogs: 0,
   singleBlog: null,
+  selectedWord: "",
 
   createBlog: async function (blogData) {
     try {
@@ -269,6 +270,13 @@ export const useBlogsStore = create((set) => ({
         return { error: error.response.data.message };
       }
     }
+  },
+
+  selectWord: function (word) {
+    set({ selectedWord: word });
+  },
+  clearWord: function () {
+    set({ selectedWord: "" });
   },
 }));
 
