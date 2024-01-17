@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useBlogsStore } from "../../Zustand/store";
-import { findMeaning } from "../../hooks/findMeaning";
+import { findMeaning } from "../../hooks/helperFunctions";
 import Loader from "../Loader/Loader";
 export const ViewMeaning = () => {
   const { selectedWord } = useBlogsStore((state) => ({ ...state }));

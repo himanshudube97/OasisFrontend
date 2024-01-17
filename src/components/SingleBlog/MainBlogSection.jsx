@@ -1,26 +1,35 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useBlogsStore } from "../../Zustand/store";
 import { Like } from "../HomePage/Like";
+import { SummarizeBlog } from "./SummarizeBlog";
+import { summarizeText } from "../../hooks/helperFunctions";
 
 // eslint-disable-next-line react/prop-types
 export const MainBlogSection = ({ blogId }) => {
-  const { getSingleBlog, singleBlog, selectWord, clearWord } = useBlogsStore((state) => ({
-    ...state,
-  }));
-
+  const { getSingleBlog, singleBlog, selectWord, clearWord } = useBlogsStore(
+    (state) => ({
+      ...state,
+    })
+  );
+  const [summary, setSummary] = useState(false);
+  // const [loading, setLoading] = useState(false);
   useEffect(() => {
     async function getSingleBlogFunc() {
       await getSingleBlog(blogId);
     }
     getSingleBlogFunc();
-    return ()=> {
+    return () => {
       clearWord();
-    }
+    };
   }, [blogId, getSingleBlog, clearWord]);
 
   const handleSelectWord = () => {
     const selectedWord = window.getSelection().toString().trim();
     selectWord(selectedWord);
+  };
+  const handleSummarize = async () => {
+    const res = await summarizeText({ text: singleBlog.content });
+    setSummary(res);
   };
   return (
     <>
@@ -65,6 +74,16 @@ export const MainBlogSection = ({ blogId }) => {
             )}
           </div>
           <Like item={singleBlog} />
+          <button
+            className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={() => {
+              handleSummarize();
+            }}
+          >
+            Summarize Blog
+          </button>
+
+          {summary && <SummarizeBlog summary={summary} />}
         </div>
       ) : (
         ""
