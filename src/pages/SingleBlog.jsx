@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 
 import { CommentList } from "../components/SingleBlog/CommentList";
-import { CommentBox } from "../components/SingleBlog/CommentBox";
 import { MainBlogSection } from "../components/SingleBlog/MainBlogSection";
+import { GeneralLeftDiv } from "../components/SingleBlog/BlogComment-MeaningDiv";
 
 export const SingleBlog = () => {
   const { blogId } = useParams();
@@ -13,7 +13,7 @@ export const SingleBlog = () => {
         <div className="flex justify-center gap-[5rem]">
           {/* Blog Title */}
 
-          <CommentBox blogId={blogId} />
+          <GeneralLeftDiv blogId={blogId} />
 
           <MainBlogSection blogId={blogId} />
 
