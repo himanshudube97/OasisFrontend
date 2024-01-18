@@ -30,10 +30,10 @@ export const createComment = (id, data) =>
 export const getAllComments = (id) => api.get(`/get-comments/${id}`);
 export const followUnfollowUser = (id, data) =>
   api.post(`/follow-unfollow-user/${id}`, data);
-  export const getAllChats = (id)=> api.get(`/get-all-chats/${id}`);
-  export const getMyChats = ()=> api.get(`/get-my-chats`);
+export const getAllChats = (id) => api.get(`/get-all-chats/${id}`);
+export const getMyChats = () => api.get(`/get-my-chats`);
 
-  // export const joinRoom = (id)=>api.post(`/join-room/${id}`);
+// export const joinRoom = (id)=>api.post(`/join-room/${id}`);
 // export const getMessages =(id)=>api.get(`/getMessages/${id}`);
 
 // export const getSingleRoom = (i)=>api.get(`/api/rooms/${id}`);
@@ -76,6 +76,7 @@ const handleTokenExpiration = () => {
   localStorage.setItem("token", "");
   useAuthStore.setState((state) => {
     console.log(state, "thorin");
-    return (state.userData = null);
+    return { ...state, userData: null }; // i was directly mutating the state hence some error.
   });
 };
+
