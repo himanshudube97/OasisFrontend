@@ -64,12 +64,12 @@ const Navbar = ({ socket }) => {
             {notification ? (
               <li className="nav-item text-red-500"> New Notification</li>
               ) : (
-              <li className="nav-item text-white"> No Notification</li>
+              <li className="nav-item text-white py-2 px-4 block "> No Notification</li>
             )}
             <li className="nav-item">
               <Link
                 to="/"
-                className="text-white hover:text-gray-300 py-2 px-4 block"
+                className="text-white hover:text-gray-300 hover:rounded-full hover:bg-slate-500 py-2 px-4 block"
               >
                 Home
               </Link>
@@ -77,7 +77,7 @@ const Navbar = ({ socket }) => {
             <li className="nav-item">
               <Link
                 to="/about"
-                className="text-white hover:text-gray-300 py-2 px-4 block"
+                className="text-white hover:text-gray-300 hover:rounded-full hover:bg-slate-500 py-2 px-4 block"
               >
                 About
               </Link>
@@ -87,7 +87,7 @@ const Navbar = ({ socket }) => {
                 onClick={() => {
                   handleLogout();
                 }}
-                className="bg-white hover:text-grey-300"
+                className="text-white hover:text-gray-300 hover:rounded-full hover:bg-red-600	 py-2 px-4 block"
               >
                 Logout
               </button>
