@@ -1,9 +1,12 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import { Like } from "./Like";
+import { format, parseISO } from 'date-fns';
 
-
-export const BlogCard = (({ item }) => {
+const BlogCard = ({ item }) => {
+  
+  const formattedDate = format(parseISO(item.createdAt), 'dd/MM/yyyy');
+   
   return (
     <>
       <Link to={`/single-blog/${item._id}`}>
@@ -13,7 +16,7 @@ export const BlogCard = (({ item }) => {
         >
           <h2 className="text-lg font-semibold mb-2">{item.title}</h2>
           <p className="text-sm mb-2">
-            Created by {item.createdBy.name} on {item.createdAt}
+            Created by {item.createdBy.name} on {formattedDate}
           </p>
           <p className="text-sm mb-4 overflow-hidden h-24">
             {item.description}
@@ -27,4 +30,7 @@ export const BlogCard = (({ item }) => {
       </Link>
     </>
   );
-});
+};
+
+
+export default BlogCard;
