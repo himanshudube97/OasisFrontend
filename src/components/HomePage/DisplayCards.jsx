@@ -2,7 +2,7 @@
 import { useBlogsStore } from "../../Zustand/store";
 import { memo, useEffect, useMemo } from "react";
 import Loader from "../Loader/Loader";
-import { BlogCard } from "./BlogCard";
+import BlogCard from "./BlogCard";
 
 const MemoizedBlogCard = memo(BlogCard);
 
