@@ -20,6 +20,9 @@ export const AllUsers = ({whatToShow}) => {
     <>
       <div className="mx-auto basis-[20%]">
         <UserCard 
+
+
+
         
         whatToShow={whatToShow} users={users} userData={userData} />
       </div>
