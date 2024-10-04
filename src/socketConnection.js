@@ -12,4 +12,8 @@ const obj = {
   third: 'third',
   fourth: 'foruthe',
   fifth: 'fight',
+
+  hello: 'sixth',
+
+  seventh: 'sevetnth',
 };
