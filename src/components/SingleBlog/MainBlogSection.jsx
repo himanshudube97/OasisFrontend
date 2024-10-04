@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { useBlogsStore } from "../../Zustand/store";
-import { Like } from "../HomePage/Like";
-import { SummarizeBlog } from "./SummarizeBlog";
-import { summarizeText } from "../../hooks/helperFunctions";
+import { useEffect, useState } from 'react';
+import { useBlogsStore } from '../../Zustand/store';
+import { Like } from '../HomePage/Like';
+import { SummarizeBlog } from './SummarizeBlog';
+import { summarizeText } from '../../hooks/helperFunctions';
 
 // eslint-disable-next-line react/prop-types
 export const MainBlogSection = ({ blogId }) => {
@@ -47,7 +47,7 @@ export const MainBlogSection = ({ blogId }) => {
             );
           })}
           <div className="bg-blue-200 text-black text-xl">
-            {" "}
+            {' '}
             By-{singleBlog.createdBy.name}
           </div>
           {/* Blog Description */}
@@ -86,7 +86,7 @@ export const MainBlogSection = ({ blogId }) => {
           {summary && <SummarizeBlog summary={summary} />}
         </div>
       ) : (
-        ""
+        ''
       )}
     </>
   );

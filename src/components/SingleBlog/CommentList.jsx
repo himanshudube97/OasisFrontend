@@ -1,6 +1,6 @@
-import { useEffect, useMemo } from "react";
-import { useAuthStore, useBlogsStore } from "../../Zustand/store";
-import { CommentCard } from "./CommentCard";
+import { useEffect, useMemo } from 'react';
+import { useAuthStore, useBlogsStore } from '../../Zustand/store';
+import { CommentCard } from './CommentCard';
 
 // eslint-disable-next-line react/prop-types
 export const CommentList = ({ blogId }) => {
@@ -8,7 +8,7 @@ export const CommentList = ({ blogId }) => {
   const { allComments, getAllComments } = useBlogsStore((state) => ({
     ...state,
   }));
-  console.log(allComments, "allcomennts");
+  console.log(allComments, 'allcomennts');
   useEffect(() => {
     async function getAllCommnetsFunc() {
       await getAllComments(blogId);

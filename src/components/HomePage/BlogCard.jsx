@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
-import { Like } from "./Like";
+import { Link } from 'react-router-dom';
+import { Like } from './Like';
 import { format, parseISO } from 'date-fns';
 
 const BlogCard = ({ item }) => {
-  
   const formattedDate = format(parseISO(item.createdAt), 'dd/MM/yyyy');
-   
+
   return (
     <>
       <Link to={`/single-blog/${item._id}`}>
@@ -31,6 +30,5 @@ const BlogCard = ({ item }) => {
     </>
   );
 };
-
 
 export default BlogCard;

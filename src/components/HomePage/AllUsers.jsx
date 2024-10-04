@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useEffect } from "react";
-import { useAuthStore } from "../../Zustand/store";
-import { UserCard } from "./UserCard";
+import { useEffect } from 'react';
+import { useAuthStore } from '../../Zustand/store';
+import { UserCard } from './UserCard';
 
-export const AllUsers = ({whatToShow}) => {
-
+export const AllUsers = ({ whatToShow }) => {
   const { users, userData, getAllUsers } = useAuthStore((state) => ({
     ...state,
   }));
@@ -19,12 +18,7 @@ export const AllUsers = ({whatToShow}) => {
   return (
     <>
       <div className="mx-auto basis-[20%]">
-        <UserCard 
-
-
-
-        
-        whatToShow={whatToShow} users={users} userData={userData} />
+        <UserCard whatToShow={whatToShow} users={users} userData={userData} />
       </div>
     </>
   );

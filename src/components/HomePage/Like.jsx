@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useAuthStore, useBlogsStore } from "../../Zustand/store";
+import { useEffect, useState } from 'react';
+import { useAuthStore, useBlogsStore } from '../../Zustand/store';
 
 /* eslint-disable react/prop-types */
 export const Like = ({ item }) => {
@@ -14,10 +14,10 @@ export const Like = ({ item }) => {
     e.preventDefault();
     e.stopPropagation();
     setLocalLike((prev) => {
-        console.log(prev, "prev")
+      console.log(prev, 'prev');
       return !prev;
     });
-    const {error} = await likeUnlikeBlog(blogId, { likeBlog });
+    const { error } = await likeUnlikeBlog(blogId, { likeBlog });
     if (error) {
       setLocalLike((prev) => {
         return !prev;
@@ -31,7 +31,7 @@ export const Like = ({ item }) => {
     } else {
       setLocalLike(false);
     }
-  }, [item.likes, userData._id])
+  }, [item.likes, userData._id]);
 
   return (
     <>

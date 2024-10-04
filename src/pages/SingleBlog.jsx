@@ -1,8 +1,8 @@
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
-import { CommentList } from "../components/SingleBlog/CommentList";
-import { MainBlogSection } from "../components/SingleBlog/MainBlogSection";
-import { GeneralLeftDiv } from "../components/SingleBlog/BlogComment-MeaningDiv";
+import { CommentList } from '../components/SingleBlog/CommentList';
+import { MainBlogSection } from '../components/SingleBlog/MainBlogSection';
+import { GeneralLeftDiv } from '../components/SingleBlog/BlogComment-MeaningDiv';
 
 export const SingleBlog = () => {
   const { blogId } = useParams();

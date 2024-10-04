@@ -1,18 +1,18 @@
-import { useState } from "react";
-import { useBlogsStore } from "../Zustand/store";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useBlogsStore } from '../Zustand/store';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export const CreateBlog = () => {
   const navigate = useNavigate();
   const { createBlog } = useBlogsStore((state) => ({ ...state }));
   const [blogData, setBlogData] = useState({
-    title: "",
-    description: "",
-    content: "",
+    title: '',
+    description: '',
+    content: '',
     isPaid: false,
   });
-  const [tag, setTag] = useState("");
+  const [tag, setTag] = useState('');
   const [tagList, setTagList] = useState([]);
 
   const handleInputChange = (e) => {
@@ -24,30 +24,30 @@ export const CreateBlog = () => {
 
   const handleSubmitBlog = async (e) => {
     e.preventDefault();
-    const {error} = await createBlog({...blogData, tags: tagList});
+    const { error } = await createBlog({ ...blogData, tags: tagList });
 
     if (!error) {
-      toast.success("Blog Successfully Created");
-      navigate("/home");
+      toast.success('Blog Successfully Created');
+      navigate('/home');
     } else {
       toast.error(error);
       setBlogData({
-        title: "",
-        description: "",
-        content: "",
+        title: '',
+        description: '',
+        content: '',
       });
     }
   };
 
   const handleRemoveTags = (index) => {
-    console.log(index, "ind");
+    console.log(index, 'ind');
     setTagList((prev) => {
       return prev.filter((_, i) => {
         return i !== index;
       });
     });
   };
-  console.log(blogData, "list");
+  console.log(blogData, 'list');
   return (
     <>
       <div className="py-8 px-4">
@@ -142,7 +142,7 @@ export const CreateBlog = () => {
                   setTagList((prev) => {
                     return [...prev, tag];
                   });
-                  setTag("");
+                  setTag('');
                 }}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               >
