@@ -10,4 +10,5 @@ export const socketConnectFunction = () => {
 
 const obj={
   hello: "Hello  "   ,
+  second: "seconond"   ,
 }
