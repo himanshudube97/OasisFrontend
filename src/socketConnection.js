@@ -10,5 +10,6 @@ const obj = {
   hello: 'Hello  ',
   second: 'seconond',
   third: 'third',
-  fourth: "foruthe"   ,
+  fourth: 'foruthe',
+  fifth: 'fight',
 };
