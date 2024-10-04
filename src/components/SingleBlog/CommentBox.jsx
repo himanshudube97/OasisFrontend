@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
-import { useBlogsStore } from "../../Zustand/store";
+import { useState } from 'react';
+import { useBlogsStore } from '../../Zustand/store';
 
 export const CommentBox = ({ blogId }) => {
   const { createComment } = useBlogsStore((state) => ({
     ...state,
   }));
-  const [commentData, setCommentData] = useState("");
+  const [commentData, setCommentData] = useState('');
   const handleCommentSubmit = async () => {
     await createComment(blogId, { comment: commentData });
-    setCommentData("");
+    setCommentData('');
   };
 
   return (

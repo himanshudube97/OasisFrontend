@@ -1,15 +1,13 @@
-import { io } from "socket.io-client";
+import { io } from 'socket.io-client';
 export const socketConnectFunction = () => {
-  const socket = io("http://localhost:4000", {autoConnect: false});
+  const socket = io('http://localhost:4000', { autoConnect: false });
   return socket;
 };
 
-
 //Ignore all the below ones. Testing husky
 
-
-const obj={
-  hello: "Hello  "   ,
-  second: "seconond"   ,
-  third : "third"   ,
-}
+const obj = {
+  hello: 'Hello  ',
+  second: 'seconond',
+  third: 'third',
+};

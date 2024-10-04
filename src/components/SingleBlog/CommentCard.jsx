@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/display-name */
-import { memo } from "react";
-import { Link } from "react-router-dom";
+import { memo } from 'react';
+import { Link } from 'react-router-dom';
 
-export const CommentCard = memo(({item, userData}) => {
+export const CommentCard = memo(({ item, userData }) => {
   return (
     <>
       <div className="bg-gray-100 rounded-md p-3 mb-3">
@@ -11,8 +11,8 @@ export const CommentCard = memo(({item, userData}) => {
           <Link
             to={
               item?.createdBy?.name == userData.name || !item?.createdBy?.name
-                ? "/profile"
-                : ""
+                ? '/profile'
+                : ''
             }
           >
             <span className="font-semibold text-blue-600">

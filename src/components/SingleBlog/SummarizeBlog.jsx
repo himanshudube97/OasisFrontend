@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 
-
 export const SummarizeBlog = ({ summary }) => {
   return (
     <>

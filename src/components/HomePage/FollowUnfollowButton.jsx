@@ -1,4 +1,4 @@
-import { useAuthStore } from "../../Zustand/store";
+import { useAuthStore } from '../../Zustand/store';
 
 /* eslint-disable react/prop-types */
 export const FollowUnfollowBtn = ({ userId, hasRealtion }) => {

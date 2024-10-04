@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { useBlogsStore } from "../../Zustand/store";
-import { findMeaning } from "../../hooks/helperFunctions";
-import Loader from "../Loader/Loader";
+import { useEffect, useState } from 'react';
+import { useBlogsStore } from '../../Zustand/store';
+import { findMeaning } from '../../hooks/helperFunctions';
+import Loader from '../Loader/Loader';
 export const ViewMeaning = () => {
   const { selectedWord } = useBlogsStore((state) => ({ ...state }));
   const [loading, setLoading] = useState(false);
   const [meaning, setMeaning] = useState({
-    noResult: "",
+    noResult: '',
     def: [],
-    fl: "",
+    fl: '',
   });
   useEffect(() => {
     async function getMeaning() {
