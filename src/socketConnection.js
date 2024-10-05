@@ -5,15 +5,3 @@ export const socketConnectFunction = () => {
 };
 
 //Ignore all the below ones. Testing husky
-
-const obj = {
-  hello: 'Hello  ',
-  second: 'seconond',
-  third: 'third',
-  fourth: 'foruthe',
-  fifth: 'fight',
-
-  hello: 'sixth',
-
-  seventh: 'sevetnth',
-};
