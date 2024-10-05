@@ -34,8 +34,10 @@ export const MainBlogSection = ({ blogId }) => {
   return (
     <>
       {singleBlog ? (
-        <div className="basis-[50%]">
-          <h1 className="text-3xl font-bold mb-4">{singleBlog?.title}</h1>
+        <div className="basis-[50%] ">
+          <h1 className="text-3xl  font-bold mb-4 box-border ">
+            {singleBlog?.title}
+          </h1>
           {singleBlog.tags.map((item, i) => {
             return (
               <span
