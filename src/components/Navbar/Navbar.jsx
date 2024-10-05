@@ -32,7 +32,7 @@ const Navbar = ({ socket }) => {
   }, [socket, userData]);
 
   return (
-    <nav className="bg-gray-800 p-4">
+    <nav className="bg-gradient-to-r from-blue-500 to-indigo-900 mb-2 p-4">
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="text-white font-bold text-xl">
           Oasis

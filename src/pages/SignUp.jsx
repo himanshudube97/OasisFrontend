@@ -41,7 +41,7 @@ function Signup() {
   return (
     <>
       <form
-        className="bg-white shadow-md rounded-lg p-8 max-w-sm mx-auto"
+        className=" bg-gradient-to-r from-cyan-200 to-indigo-500 shadow-md rounded-lg p-8 mt-28 flex flex-col  max-w-sm mx-auto"
         onSubmit={handleSubmit}
       >
         <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
@@ -54,7 +54,7 @@ function Signup() {
             type="text"
             id="name"
             name="name"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-gray-500"
             value={formData.name}
             onChange={handleChange}
             required
@@ -69,7 +69,7 @@ function Signup() {
             type="tel"
             id="phone"
             name="phone"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-gray-500"
             value={formData.phone}
             onChange={handleChange}
             required
@@ -82,7 +82,7 @@ function Signup() {
         >
           Sign Up
         </button>
-        <Link to="/login" className="text-blue-500">
+        <Link to="/login" className="text-blue-700">
           Already a User?
         </Link>
       </form>
