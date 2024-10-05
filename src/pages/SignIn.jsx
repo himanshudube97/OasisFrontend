@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { useAuthStore } from "../Zustand/store";
-import { Link } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { useState } from 'react';
+import { useAuthStore } from '../Zustand/store';
+import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 function SignIn() {
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState('');
 
   const { loginUser } = useAuthStore((state) => {
     return { ...state };
@@ -15,13 +15,13 @@ function SignIn() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const {error} = await loginUser({ phone });
+    const { error } = await loginUser({ phone });
     if (!error) {
-      toast.success("User Logged In");
-    //   navigate("/signup");
+      toast.success('User Logged In');
+      //   navigate("/signup");
     } else {
       toast.error(error);
-      setPhone("");
+      setPhone('');
     }
   };
 

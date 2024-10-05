@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { useAuthStore } from "../Zustand/store";
-import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useState } from 'react';
+import { useAuthStore } from '../Zustand/store';
+import { Link, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Signup() {
   const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
+    name: '',
+    phone: '',
   });
 
   const navigate = useNavigate();
-  const { createUser, } = useAuthStore((state) => {
+  const { createUser } = useAuthStore((state) => {
     return { ...state };
   });
   const handleChange = (event) => {
@@ -21,16 +21,16 @@ function Signup() {
     event.preventDefault();
     // Handle form submission (e.g., send data to an API)
 
-    const {error} = await createUser(formData);
+    const { error } = await createUser(formData);
 
     if (!error) {
-      toast.success("User Created Successfully");
-      navigate("/login");
+      toast.success('User Created Successfully');
+      navigate('/login');
     } else {
       toast.error(error);
       setFormData({
-        name: "",
-        phone: "",
+        name: '',
+        phone: '',
       });
     }
   };

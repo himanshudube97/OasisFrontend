@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 // Navbar.js
 
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom"; // If you're using React Router
-import { useAuthStore } from "../../Zustand/store";
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom'; // If you're using React Router
+import { useAuthStore } from '../../Zustand/store';
 
 const Navbar = ({ socket }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,16 +17,16 @@ const Navbar = ({ socket }) => {
   };
   const handleLogout = () => {
     logoutUser();
-    socket?.disconnect("disconnect");
+    socket?.disconnect('disconnect');
   };
 
   useEffect(() => {
     if (socket) {
-      socket.on("pvt-message", (msg) => {
-        console.log(msg, "header main msg");
-          if(userData._id!==msg.fromId){
-            setNotification(true);
-          }
+      socket.on('pvt-message', (msg) => {
+        console.log(msg, 'header main msg');
+        if (userData._id !== msg.fromId) {
+          setNotification(true);
+        }
       });
     }
   }, [socket, userData]);
@@ -59,12 +59,15 @@ const Navbar = ({ socket }) => {
         </div>
 
         {/* Navigation Links */}
-        <div className={`lg:flex ${isOpen ? "block" : "hidden"} items-center`}>
+        <div className={`lg:flex ${isOpen ? 'block' : 'hidden'} items-center`}>
           <ul className="lg:flex flex-col lg:flex-row list-none lg:ml-auto ">
             {notification ? (
               <li className="nav-item text-red-500"> New Notification</li>
-              ) : (
-              <li className="nav-item text-white py-2 px-4 block "> No Notification</li>
+            ) : (
+              <li className="nav-item text-white py-2 px-4 block ">
+                {' '}
+                No Notification
+              </li>
             )}
             <li className="nav-item">
               <Link

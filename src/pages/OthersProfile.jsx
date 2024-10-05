@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { useAuthStore } from "../Zustand/store";
+import { useEffect, useState } from 'react';
+import { useAuthStore } from '../Zustand/store';
 // import { AllUsers } from "../components/HomePage/AllUsers";
 // import { UserFollowersList } from "../constants/constants";
-import { Link, useParams } from "react-router-dom";
-import Loader from "../components/Loader/Loader";
+import { Link, useParams } from 'react-router-dom';
+import Loader from '../components/Loader/Loader';
 
 export const OtherUserProfile = () => {
   const { userId } = useParams();
@@ -11,7 +11,7 @@ export const OtherUserProfile = () => {
   const { singleUser, getSingleUserOther } = useAuthStore((state) => {
     return { ...state };
   });
-  console.log(singleUser, "singleuser");
+  console.log(singleUser, 'singleuser');
   useEffect(() => {
     async function getSingleUserFn(userId) {
       await getSingleUserOther(userId);

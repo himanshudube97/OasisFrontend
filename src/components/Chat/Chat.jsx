@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import {useEffect, useMemo, useRef, } from "react";
-import { SingleMsg } from "./SingleMessage";
+import { useEffect, useMemo, useRef } from 'react';
+import { SingleMsg } from './SingleMessage';
 
 // eslint-disable-next-line no-unused-vars
 export const ChatSection = ({ chatId, tempChats }) => {
@@ -17,13 +17,16 @@ export const ChatSection = ({ chatId, tempChats }) => {
   //if all msgs change then only this map function will run.
   // storing SingleMsg as memo, because, while rendering only those msgs will re render which are new not the old ones.
 
-  const MemoizedChats = useMemo(()=>{
-      return tempChats.map((item, i)=> {
-        if(item.chatId == chatId) return <>
-          <SingleMsg item={item} key={i} />
-        </>
-      })
-  },[tempChats, chatId])
+  const MemoizedChats = useMemo(() => {
+    return tempChats.map((item, i) => {
+      if (item.chatId == chatId)
+        return (
+          <>
+            <SingleMsg item={item} key={i} />
+          </>
+        );
+    });
+  }, [tempChats, chatId]);
   return (
     <>
       <div
@@ -33,7 +36,7 @@ export const ChatSection = ({ chatId, tempChats }) => {
         {/* Your chat messages here */}
 
         {/* {MappedChats} */}
-      {MemoizedChats}
+        {MemoizedChats}
       </div>
     </>
   );

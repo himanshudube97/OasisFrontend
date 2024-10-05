@@ -1,6 +1,6 @@
-import { FollowUnfollowBtn } from "./FollowUnfollowButton";
-import { UserFollowersList } from "../../constants/constants";
-import { Link } from "react-router-dom";
+import { FollowUnfollowBtn } from './FollowUnfollowButton';
+import { UserFollowersList } from '../../constants/constants';
+import { Link } from 'react-router-dom';
 /* eslint-disable react/prop-types */
 export const UserCard = ({ whatToShow, users, userData }) => {
   return (
@@ -37,12 +37,12 @@ export const UserCard = ({ whatToShow, users, userData }) => {
 
       {whatToShow === UserFollowersList.NOT_FOLLOWED && (
         <>
-          {console.log("yoo")}
+          {console.log('yoo')}
           {users.map((user) => {
             return (
               <>
                 {userData.following.includes(user._id) ? (
-                  ""
+                  ''
                 ) : (
                   <>
                     <div
